@@ -157,45 +157,42 @@ public extension NSDate {
         return change(month: 1, day: 1, hour: 0, minute: 0, second: 0)
     }
     var endOfYear: NSDate {
-        return change(month: 12, day: 31, hour: 23, minute: 59, second: 59)
+        return (beginningOfYear + 1.year).dateByAddingTimeInterval(-1)
     }
     
     var beginningOfMonth: NSDate {
         return change(day: 1, hour: 0, minute: 0, second: 0)
     }
     var endOfMonth: NSDate {
-        let lastDay = calendar.rangeOfUnit(.Day, inUnit: .Month, forDate: self).length
-        return change(day: lastDay, hour: 23, minute: 59, second: 59)
+        return (beginningOfMonth + 1.month).dateByAddingTimeInterval(-1)
     }
 	
 	var beginningOfWeek: NSDate {
-		let daysDiff = (7 + (weekday - calendar.firstWeekday)) % 7
-		return beginningOfDay - daysDiff.days
+        return change(weekday: 1).beginningOfDay
 	}
 	var endOfWeek: NSDate {
-		let daysDiff = (7 + ((calendar.firstWeekday - 1) - weekday)) % 7
-		return endOfDay + daysDiff.days
+        return (beginningOfWeek + 1.week).dateByAddingTimeInterval(-1)
 	}
     
     var beginningOfDay: NSDate {
         return change(hour: 0, minute: 0, second: 0)
     }
     var endOfDay: NSDate {
-        return change(hour: 23, minute: 59, second: 59)
+        return (beginningOfDay + 1.day).dateByAddingTimeInterval(-1)
     }
     
     var beginningOfHour: NSDate {
         return change(minute: 0, second: 0)
     }
     var endOfHour: NSDate {
-        return change(minute: 59, second: 59)
+        return (beginningOfHour + 1.hour).dateByAddingTimeInterval(-1)
     }
     
     var beginningOfMinute: NSDate {
         return change(second: 0)
     }
     var endOfMinute: NSDate {
-        return change(second: 59)
+        return (beginningOfMinute + 1.minute).dateByAddingTimeInterval(-1)
     }
     
     // MARK: - Format dates
@@ -204,5 +201,12 @@ public extension NSDate {
         let formatter = NSDateFormatter()
         formatter.dateFormat = format
         return formatter.stringFromDate(self)
+    }
+    
+    // MARK: - Differences
+    
+    func differenceWith(date: NSDate, inUnit unit: NSCalendarUnit) -> Int {
+        
+        return calendar.components(unit, fromDate: self, toDate: date, options: []).valueForComponent(unit)
     }
 }

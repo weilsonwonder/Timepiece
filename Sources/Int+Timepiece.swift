@@ -57,4 +57,24 @@ public extension Int {
     var seconds: Duration {
         return second
     }
+        
+    var ordinal: String {
+        
+        let ones: Int = self % 10
+        let tens: Int = (self/10) % 10
+        
+        if (tens == 1) {
+            return "th"
+        }
+        else if (ones == 1) {
+            return "st"
+        }
+        else if (ones == 2) {
+            return "nd"
+        }
+        else if (ones == 3) {
+            return "rd"
+        }
+        return "th"
+    }
 }

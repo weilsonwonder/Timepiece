@@ -44,9 +44,9 @@ public class Duration {
     
         This operation is performed under incorrect assumption that 1 month is always equal to 30 days.
     */
-    public lazy var interval: NSTimeInterval = { [unowned self] in
-        return self.unit.interval * NSTimeInterval(self.value)
-    }()
+//    public lazy var interval: NSTimeInterval = { [unowned self] in
+//        return self.unit * NSTimeInterval(self.value)
+//    }()
     
     public init(value: Int, unit: NSCalendarUnit) {
         self.value = value
