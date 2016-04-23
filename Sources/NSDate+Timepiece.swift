@@ -56,8 +56,12 @@ public extension NSDate {
         return components.month
     }
     
-    var week: Int {
+    var weekOfYear: Int {
         return components.weekOfYear
+    }
+    
+    var weekOfMonth: Int {
+        return components.weekOfMonth
     }
     
     var weekday: Int {
@@ -85,7 +89,7 @@ public extension NSDate {
     }
     
     private var components: NSDateComponents {
-        return calendar.components([.Year, .Month, .WeekOfYear, .Weekday, .Day, .Hour, .Minute, .Second], fromDate: self)
+        return calendar.components([.Year, .Month, .WeekOfYear, .WeekOfMonth, .Weekday, .Day, .Hour, .Minute, .Second], fromDate: self)
     }
     
     private var calendar: NSCalendar {
